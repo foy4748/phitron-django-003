@@ -3,5 +3,5 @@ from . import views
 
 app_name = "category"
 urlpatterns = [
-    path("", views.AllCategories, name="categories"),
+    path("", views.ShowAddCategoryForm, name="add_category_form"),
 ]
