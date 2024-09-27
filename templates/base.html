@@ -9,12 +9,23 @@
 		<title>{% block title %} Home {% endblock title %} || Task Manager</title>
 		<!-- Bootstrap CSS -->
 		<link href="{% static "css/bootstrap/bootstrap.min.css" %}" rel="stylesheet">
+		<style>
+			.checkbox-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+				gap: 10px;
+			}
+			.checkbox-grid .form-check {
+				display: block;
+			}
+		</style>
 	</head>
-	<body>
+	<body class="container">
 		<nav>
 			<ul>
-				<li><a href="{% url 'task:tasks' %}">Tasks</a></li>
+				<li><a href="{% url 'task:add_task_form' %}">Add Tasks</a></li>
 				<li><a href="{% url 'category:add_category_form' %}">Categories</a></li>
+				<li><a href="{% url 'task:show_tasks' %}">Show Tasks</a></li>
 			</ul>
 		</nav>
 		{% block content %}

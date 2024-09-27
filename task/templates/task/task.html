@@ -2,5 +2,16 @@
 {% block title %} Tasks {% endblock title %} 
 
 {% block content %}
-<h1>I'm Tasks page</h1>
+<ul>
+{% for singleTask in tasks %}
+	<li>{{ singleTask.task_title }}
+		<ul>
+			{% for cat in singleTask.category.all %}
+			<li>{{ cat }}</li>
+			{% endfor %}
+		</ul>
+	</li>
+{% endfor %}
+	
+</ul>
 {% endblock content %}
