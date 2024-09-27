@@ -6,4 +6,5 @@ urlpatterns = [
     path("", views.AllTasks, name="show_tasks"),
     path("add_task/", views.ShowAddTaskForm, name="add_task_form"),
     path("edit_task/<str:pk>/", views.ShowEditTaskForm, name="edit_task_form"),
+    path("delete_task/<str:pk>/", views.DeleteSingleTask, name="delete_task"),
 ]

@@ -52,3 +52,9 @@ def ShowEditTaskForm(req, pk):
             )
     form = AddTaskForm(instance=task_instance)
     return render(req, "task/addTaskForm.html", {"form": form})
+
+
+def DeleteSingleTask(_, pk):
+    task_instance = get_object_or_404(TaskModel, pk=pk)
+    task_instance.delete()
+    return redirect("task:show_tasks")
