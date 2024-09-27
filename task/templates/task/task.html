@@ -1,6 +1,5 @@
 {% extends "base.html" %} 
 {% block title %} Tasks {% endblock title %} 
-
 {% block content %}
 <ul>
 {% for singleTask in tasks %}
@@ -10,6 +9,10 @@
 			<li>{{ cat }}</li>
 			{% endfor %}
 		</ul>
+		<div>
+			<a class="btn btn-warning btn-sm" href="{% url "task:edit_task_form" pk=singleTask.id %}">Edit</a>
+			<a class="btn btn-danger btn-sm">Delete</a>
+		</div>
 	</li>
 {% endfor %}
 	
