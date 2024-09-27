@@ -7,7 +7,7 @@ from task.models import TaskModel
 class AddTaskForm(forms.ModelForm):
     class Meta:
         model = TaskModel
-        fields = ["task_title", "category", "task_description"]
+        fields = ["task_title", "task_description", "category", "is_completed"]
         widgets = {"task_description": forms.Textarea()}
         helper_texts = {"task_description": "1000 chars"}
 

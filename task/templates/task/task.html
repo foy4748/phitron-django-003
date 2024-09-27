@@ -1,20 +1,51 @@
 {% extends "base.html" %} 
+{% load humanize %}
 {% block title %} Tasks {% endblock title %} 
 {% block content %}
-<ul>
-{% for singleTask in tasks %}
-	<li>{{ singleTask.task_title }}
-		<ul>
-			{% for cat in singleTask.category.all %}
-			<li>{{ cat }}</li>
-			{% endfor %}
-		</ul>
-		<div>
-			<a class="btn btn-warning btn-sm" href="{% url 'task:edit_task_form' pk=singleTask.id %}">Edit</a>
-			<a class="btn btn-danger btn-sm"  href="{% url 'task:delete_task' pk=singleTask.id %}">Delete</a>
+<div class="container">
+	<div class="row">
+		<!-- Showing Message if no task exists -->
+		{% if tasks is None or tasks|length == 0 %}
+		<div class="d-flex flex-column align-items-center">
+			<p class="fs-6 fw-light text-center">No Tasks added, yet</p>
+			<a class="btn btn-outline-primary btn-sm w-25" href="{% url "task:add_task_form" %}">Add a Task</a>
 		</div>
-	</li>
-{% endfor %}
-	
-</ul>
+		{% endif %}
+		<!-- END of Showing Message if no task exists -->
+
+		<!-- Looping through Tasks -->
+		<!-- Rendering Cards -->
+		{% for singleTask in tasks %}
+		<div class="col-12 col-md-6 col-lg-4">
+			<div class="card h-100">
+				<div class="card-body d-flex flex-column justify-content-between">
+					<h5 class="card-title">{{ singleTask.task_title }}</h5>
+					<h6 class="card-subtitle mb-2 text-body-secondary">{{ singleTask.task_assign_date|timesince }} ago</h6>
+					<div>
+						{% for cat in singleTask.category.all %}
+						<button class="btn btn-outline-primary btn-sm">{{ cat }}</button>
+						{% endfor %}
+					</div>
+					<p class="card-text mt-2">{{ singleTask.task_description }}</p>
+					<!-- Toggling Card Button -->
+					{% if singleTask.is_completed is False %}
+					<div>
+						<a class="btn btn-warning btn-sm" href="{% url 'task:edit_task_form' pk=singleTask.id %}">Edit</a>
+						<a class="btn btn-danger btn-sm"  href="{% url 'task:delete_task' pk=singleTask.id %}">Delete</a>
+					</div>
+					{% else %}
+					<div>
+						<a class="btn btn-success btn-sm" href="{% url 'task:edit_task_form' pk=singleTask.id %}">Completed</a>
+					</div>
+					{% endif %}
+					<!-- End of Toggleing Card Button -->
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+		<!-- END of Looping through Tasks -->
+		<!-- END of Rendering Cards -->
+	</div>
+
+</div>
 {% endblock content %}
