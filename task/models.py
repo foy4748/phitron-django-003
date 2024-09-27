@@ -10,3 +10,6 @@ class TaskModel(models.Model):
     is_completed = models.BooleanField(default=False)  # type: ignore
     task_assign_date = models.DateTimeField(default=timezone.now)
     category = models.ManyToManyField(TaskCategory, related_name="tasks")
+
+    def __str__(self):
+        return self.task_title
