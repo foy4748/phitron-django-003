@@ -1,5 +1,7 @@
 # Instructions    
 
+- Requirement Doc : [Google Doc](https://docs.google.com/document/d/1G98mMZ77fk6Hf5C_B3_QLo6gd81q2A8ZH-k0VzGklzk/edit)    
+
 After cloning this repository, you need to initiate a virtual environment. Then install necessary packages within it.
 
 1. Go to project directory
