@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import redirect, render
 
 from category.forms import AddCategoryForm
 
@@ -17,15 +18,11 @@ def ShowAddCategoryForm(req):
             success_message = (
                 f"Added new category {current_form.cleaned_data.get('category_name')}"
             )
-            return render(
-                req, "category/category.html", {"success_message": success_message}
-            )
+            messages.success(req, success_message)
+            return redirect("task:show_tasks")
         else:
             error_message = "Given category can't be stored"
-            return render(
-                req,
-                "error.html",
-                {"error_message": error_message},
-            )
+            messages.error(req, error_message)
+            return redirect("task:show_tasks")
     form = AddCategoryForm()
     return render(req, "category/addCategoryForm.html", {"form": form})

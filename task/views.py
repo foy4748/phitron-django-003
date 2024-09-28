@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib import messages
 
 from task.forms import AddTaskForm
 from task.models import TaskModel
@@ -17,17 +18,16 @@ def ShowAddTaskForm(req):
         current_form = AddTaskForm(req.POST)
         if current_form.is_valid():
             current_form.save()
-            # success_message = (
-            #     f"Added new task {current_form.cleaned_data.get('task_title')}"
-            # )
+            success_message = (
+                f"Added new task {current_form.cleaned_data.get('task_title')}"
+            )
+
+            messages.success(req, success_message)
             return redirect("task:show_tasks")
         else:
             error_message = "Given task can't be stored"
-            return render(
-                req,
-                "error.html",
-                {"error_message": error_message},
-            )
+            messages.error(req, error_message)
+            return redirect("task:show_tasks")
     form = AddTaskForm()
     return render(req, "task/addTaskForm.html", {"form": form})
 
@@ -39,17 +39,15 @@ def ShowEditTaskForm(req, pk):
         current_form = AddTaskForm(req.POST, instance=task_instance)
         if current_form.is_valid():
             current_form.save()
-            # success_message = (
-            #     f"Updated task {current_form.cleaned_data.get('task_title')}"
-            # )
+            success_message = (
+                f"Updated task {current_form.cleaned_data.get('task_title')}"
+            )
+            messages.success(req, success_message)
             return redirect("task:show_tasks")
         else:
             error_message = "Given task can't be stored"
-            return render(
-                req,
-                "error.html",
-                {"error_message": error_message},
-            )
+            messages.error(req, error_message)
+            return redirect("task:show_tasks")
     form = AddTaskForm(instance=task_instance)
     return render(req, "task/addTaskForm.html", {"form": form})
 

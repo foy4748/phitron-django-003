@@ -11,6 +11,7 @@
 		<link href="{% static "css/bootstrap/bootstrap.min.css" %}" rel="stylesheet">
 	</head>
 	<body>
+		{% include "toast.html" %}
 		{% include "navbar.html" %}
 		<main class="container mt-4">
 			{% block content %}
