@@ -5,7 +5,7 @@
 <div class="container">
 	<div class="row">
 		<!-- Showing Message if no task exists -->
-		{% if tasks is None or tasks|length == 0 %}
+		{% if object_list is None or object_list|length == 0 %}
 		<div class="d-flex flex-column align-items-center">
 			<p class="fs-6 fw-light text-center">No Tasks added, yet</p>
 			<a class="btn btn-outline-primary btn-sm w-25" href="{% url "task:add_task_form" %}">Add a Task</a>
@@ -15,27 +15,27 @@
 
 		<!-- Looping through Tasks -->
 		<!-- Rendering Cards -->
-		{% for singleTask in tasks %}
+		{% for object in object_list %}
 		<div class="col-12 col-md-6 col-lg-4">
 			<div class="card h-100">
 				<div class="card-body d-flex flex-column justify-content-between">
-					<h5 class="card-title">{{ singleTask.task_title }}</h5>
-					<h6 class="card-subtitle mb-2 text-body-secondary">{{ singleTask.task_assign_date|timesince }} ago</h6>
+					<h5 class="card-title">{{ object.task_title }}</h5>
+					<h6 class="card-subtitle mb-2 text-body-secondary">{{ object.task_assign_date|timesince }} ago</h6>
 					<div>
-						{% for cat in singleTask.category.all %}
+						{% for cat in object.category.all %}
 						<button class="btn btn-outline-primary btn-sm">{{ cat }}</button>
 						{% endfor %}
 					</div>
-					<p class="card-text mt-2">{{ singleTask.task_description }}</p>
+					<p class="card-text mt-2">{{ object.task_description }}</p>
 					<!-- Toggling Card Button -->
-					{% if singleTask.is_completed is False %}
+					{% if object.is_completed is False %}
 					<div>
-						<a class="btn btn-warning btn-sm" href="{% url 'task:edit_task_form' pk=singleTask.id %}">Edit</a>
-						<a class="btn btn-danger btn-sm"  href="{% url 'task:delete_task' pk=singleTask.id %}">Delete</a>
+						<a class="btn btn-warning btn-sm" href="{% url 'task:edit_task_form' pk=object.id %}">Edit</a>
+						<a class="btn btn-danger btn-sm"  href="{% url 'task:delete_task' pk=object.id %}">Delete</a>
 					</div>
 					{% else %}
 					<div>
-						<a class="btn btn-success btn-sm" href="{% url 'task:edit_task_form' pk=singleTask.id %}">Completed</a>
+						<a class="btn btn-success btn-sm" href="{% url 'task:edit_task_form' pk=object.id %}">Completed</a>
 					</div>
 					{% endif %}
 					<!-- End of Toggleing Card Button -->
