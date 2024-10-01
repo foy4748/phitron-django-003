@@ -20,7 +20,6 @@ class AllTasks(ListView):
 
 class ShowAddTaskForm(CreateView):
     model = TaskModel
-    template_name = "task/addTaskForm.html"
     form_class = AddTaskForm
     # Doesn't work
     # success_url = reverse("task:show_tasks")
