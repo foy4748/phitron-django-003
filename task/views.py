@@ -1,5 +1,5 @@
 # from django.urls import reverse
-from django.http import HttpResponseRedirect
+# from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
@@ -33,9 +33,8 @@ class ShowAddTaskForm(CreateView):
     def form_valid(self, form):
         self.object = form.save()
         success_message = f"Added new task {form.cleaned_data.get('task_title')}"
-
         messages.success(self.request, success_message)
-        return HttpResponseRedirect(self.get_success_url())
+        return super().form_valid(form)
 
 
 class ShowEditTaskForm(UpdateView):
@@ -54,9 +53,9 @@ class ShowEditTaskForm(UpdateView):
     def form_valid(self, form):
         self.object = form.save()
         success_message = f"Added new task {form.cleaned_data.get('task_title')}"
-
         messages.success(self.request, success_message)
-        return HttpResponseRedirect(self.get_success_url())
+
+        return super().form_valid(form)
 
 
 class DeleteSingleTask(DeleteView):
@@ -70,7 +69,6 @@ class DeleteSingleTask(DeleteView):
         todo = self.get_object()
         # print(todo.task_title, todo.id)
         success_message = f"Deleted task {todo.task_title} with id {todo.id}"
-
         messages.success(self.request, success_message)
         return super().post(request, *args, **kwargs)
 

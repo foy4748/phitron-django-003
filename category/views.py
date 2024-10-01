@@ -1,9 +1,6 @@
 from django.contrib import messages
-from django.shortcuts import redirect, render
-from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
-from django.views.generic.list import ListView
 
 from category.forms import AddCategoryForm
 from category.models import TaskCategory
@@ -25,9 +22,8 @@ class ShowAddCategoryForm(CreateView):
     def form_valid(self, form):
         self.object = form.save()
         success_message = f"Added new category {form.cleaned_data.get('category_name')}"
-
         messages.success(self.request, success_message)
-        return HttpResponseRedirect(self.get_success_url())
+        return super().form_invalid(form)
 
 
 ########
